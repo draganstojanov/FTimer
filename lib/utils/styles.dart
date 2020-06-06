@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ftimer/const/constants.dart';
+import 'package:ftimer/utils/constants.dart';
+
+import 'constants.dart';
 
 const kCardTitleStyle = TextStyle(
   fontSize: 20.0,

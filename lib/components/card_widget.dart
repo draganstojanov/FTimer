@@ -1,20 +1,21 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:ftimer/const/constants.dart';
-import 'package:ftimer/const/styles.dart';
+import 'package:ftimer/utils/constants.dart';
+import 'package:ftimer/utils/styles.dart';
 
 class CardWidget extends StatefulWidget {
   CardWidget({@required this.cardTitle, @required this.maxValue});
 
   final String cardTitle;
   final double maxValue;
-  double value = 0.0;
-
+  final double value = 0.0;
   @override
   _CardWidget createState() => _CardWidget();
 }
 
 class _CardWidget extends State<CardWidget> {
+  double value=0.0;
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -24,7 +25,7 @@ class _CardWidget extends State<CardWidget> {
           horizontal: 16.0,
         ),
         margin: EdgeInsets.only(
-          top: 8.0,
+          top: 12.0,
           left: 12.0,
           right: 12.0,
         ),
@@ -46,22 +47,20 @@ class _CardWidget extends State<CardWidget> {
                     flex: 3,
                     child: SliderTheme(
                       data: SliderTheme.of(context).copyWith(
-                        inactiveTrackColor: Color(0xFF8D8E98),
-                        activeTrackColor: Colors.white,
-                        thumbColor: Color(0xFFEB1555),
-                        overlayColor: Color(0x29EB1555),
+                        trackHeight: 8.0,
+                        inactiveTrackColor: kCardTitleColor,
+                        activeTrackColor: kCardTitleColor,
+                        thumbColor: kCardValueColor,
                         thumbShape:
-                            RoundSliderThumbShape(enabledThumbRadius: 15.0),
-                        overlayShape:
-                            RoundSliderOverlayShape(overlayRadius: 30.0),
+                            RoundSliderThumbShape(enabledThumbRadius: 16.0),
                       ),
                       child: Slider(
-                        value: widget.value,
+                        value: value,
                         min: 0.0,
                         max: widget.maxValue,
                         onChanged: (double newValue) {
                           setState(() {
-                            widget.value = newValue;
+                            value = newValue;
                           });
                         },
                       ),
@@ -72,7 +71,7 @@ class _CardWidget extends State<CardWidget> {
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: AutoSizeText(
-                        widget.value.round().toString(),
+                        value.round().toString(),
                         style: kCardValueTextStyle,
                         maxLines: 1,
                         minFontSize: 30.0,
