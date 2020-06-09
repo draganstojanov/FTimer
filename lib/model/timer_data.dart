@@ -1,9 +1,13 @@
-class TimerData {
-  int _seriesValue = 0;
-  int _durationValue = 0;
-  int _pauseValue = 0;
+import 'package:ftimer/utils/constants.dart';
 
-  TimerData();
+class TimerData {
+  int _seriesValue;
+  int _durationValue;
+  int _pauseValue;
+
+  TimerData() {
+    reset();
+  }
 
   TimerData.tData(double seriesValue, double durationValue, double pauseValue) {
     this._seriesValue = seriesValue.round();
@@ -30,13 +34,9 @@ class TimerData {
   }
 
   void reset() {
-    seriesValue = 0;
-    durationValue = 0;
-    pauseValue = 0;
+    seriesValue = kSeriesMinValue.toInt();
+    durationValue = kDurationMinValue.toInt();
+    pauseValue = kPauseMinValue.toInt();
   }
 
-  @override
-  String toString() {
-    return 'TimerData{_seriesValue: $_seriesValue, _durationValue: $_durationValue, _pauseValue: $_pauseValue}';
-  }
 }

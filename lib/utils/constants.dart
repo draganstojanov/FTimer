@@ -1,10 +1,7 @@
-import 'package:flutter/material.dart';
+const kSeriesMaxValue = 10.0;
+const kDurationMaxValue = 300.0;
+const kPauseMaxValue = 120.0;
 
-const kSelectorBackgroundColor = Color(0xFFAAAAAA);
-
-const k2 = Color(0xFF215204);
-const kCardBackColor = Color(0xFF042152);
-const kButtonColor = Color(0xFF520421);
-
-const kCardTitleColor = Color(0xFFe6e6e6);
-const kCardValueColor = Color(0xFFFDFD51);
+const kSeriesMinValue = 1.0;
+const kDurationMinValue = 10.0;
+const kPauseMinValue = 10.0;

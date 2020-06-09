@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:ftimer/utils/constants.dart';
+import 'package:ftimer/utils/colors.dart';
 import 'package:ftimer/utils/styles.dart';
 
 class ButtonsLayout extends StatelessWidget {
-  Function onPressedReset;
-  Function onPressedStart;
+  final Function onPressedLeft;
+  final Function onPressedRight;
+  final String labelLeft;
+  final String labelRight;
 
-  ButtonsLayout({this.onPressedReset, this.onPressedStart});
+  const ButtonsLayout({Key key, this.onPressedLeft, this.onPressedRight, this.labelLeft, this.labelRight});
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Row(
         children: <Widget>[
-          _button(onPressedReset, 'Reset'),
-          _button(onPressedStart, 'Start'),
+          _button(onPressedLeft, labelLeft),
+          _button(onPressedRight, labelRight),
         ],
       ),
     );

@@ -1,20 +1,17 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:ftimer/utils/constants.dart';
+import 'package:ftimer/utils/colors.dart';
 import 'package:ftimer/utils/styles.dart';
 
-class CardWidget extends StatefulWidget {
-  CardWidget({@required this.cardTitle, @required this.maxValue});
+class CardWidget extends StatelessWidget {
+  CardWidget(
+      {@required this.cardTitle,
+      @required this.slider,
+      @required this.valueTxt});
 
   final String cardTitle;
-  final double maxValue;
-  final double value = 0.0;
-  @override
-  _CardWidget createState() => _CardWidget();
-}
-
-class _CardWidget extends State<CardWidget> {
-  double value=0.0;
+  final Slider slider;
+  final AutoSizeText valueTxt;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +34,7 @@ class _CardWidget extends State<CardWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              widget.cardTitle.toUpperCase(),
+              cardTitle.toUpperCase(),
               style: kCardTitleStyle,
             ),
             Expanded(
@@ -46,37 +43,20 @@ class _CardWidget extends State<CardWidget> {
                   Expanded(
                     flex: 3,
                     child: SliderTheme(
-                      data: SliderTheme.of(context).copyWith(
-                        trackHeight: 8.0,
-                        inactiveTrackColor: kCardTitleColor,
-                        activeTrackColor: kCardTitleColor,
-                        thumbColor: kCardValueColor,
-                        thumbShape:
-                            RoundSliderThumbShape(enabledThumbRadius: 16.0),
-                      ),
-                      child: Slider(
-                        value: value,
-                        min: 0.0,
-                        max: widget.maxValue,
-                        onChanged: (double newValue) {
-                          setState(() {
-                            value = newValue;
-                          });
-                        },
-                      ),
-                    ),
+                        data: SliderTheme.of(context).copyWith(
+                          trackHeight: 8.0,
+                          inactiveTrackColor: kCardTitleColor,
+                          activeTrackColor: kCardTitleColor,
+                          thumbColor: kCardValueColor,
+                          thumbShape:
+                              RoundSliderThumbShape(enabledThumbRadius: 16.0),
+                        ),
+                        child: slider),
                   ),
                   Expanded(
                     flex: 1,
                     child: Align(
-                      alignment: Alignment.centerRight,
-                      child: AutoSizeText(
-                        value.round().toString(),
-                        style: kCardValueTextStyle,
-                        maxLines: 1,
-                        minFontSize: 30.0,
-                      ),
-                    ),
+                        alignment: Alignment.centerRight, child: valueTxt),
                   ),
                 ],
               ),

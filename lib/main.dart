@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ftimer/screens/ftimer_selector.dart';
-import 'package:ftimer/utils/constants.dart';
+import 'package:ftimer/screens/set_timer.dart';
+import 'package:ftimer/utils/colors.dart';
 
 void main() => runApp(FtimerApp());
 
