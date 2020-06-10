@@ -18,55 +18,56 @@ class Countdown extends StatefulWidget {
 }
 
 class _Countdown extends State<Countdown> {
-  List<TimerItem> timerList;
+  List<TimerItem> _timerList;
   int _duration;
-  CountdownTimer countDownTimer;
-  StreamSubscription<CountdownTimer> cdt;
+  CountdownTimer _countDownTimer;
+  StreamSubscription<CountdownTimer> _cdt;
   String _title = '';
   int _timerIndex;
 
   @override
-  void initState() {
+  initState() {
     super.initState();
     _setTimerList();
   }
 
   _setTimerList() {
     _cancelTimer();
-    timerList = List<TimerItem>();
-    timerList.add(TimerItem('Ready', 3));
+    _timerList = List<TimerItem>();
+    _timerList.add(TimerItem('Ready', 3));
     for (int i = 0; i < widget.timerData.seriesValue; i++) {
-      timerList.add(TimerItem('Series ${i + 1}', widget.timerData.durationValue));
-      timerList.add(TimerItem('Pause ${i + 1}', widget.timerData.pauseValue));
+      _timerList.add(TimerItem('Series ${i + 1}', widget.timerData.durationValue));
+      _timerList.add(TimerItem('Pause ${i + 1}', widget.timerData.pauseValue));
     }
-    timerList.removeLast();
+    _timerList.removeLast();
     _timerIndex = 0;
 
-    print(timerList.toString());
+    print(_timerList.toString());
 
     _startTimer();
   }
 
   _startTimer() {
-    TimerItem _timerItem = timerList[_timerIndex];
-    print(_timerItem);
+    TimerItem _timerItem = _timerList[_timerIndex];
+    setState(() {
+      _title = _timerItem.title;
+    });
     _duration = _timerItem.duration;
-    countDownTimer = CountdownTimer(
+    _countDownTimer = CountdownTimer(
       Duration(seconds: _timerItem.duration),
       Duration(seconds: 1),
     );
-    cdt = countDownTimer.listen(null);
-    cdt.onData((data) {
+    _cdt = _countDownTimer.listen(null);
+    _cdt.onData((data) {
       setState(() {
-        _title = _timerItem.title;
         _duration--;
       });
     });
-    cdt.onDone(() {
-      cdt.cancel();
+    _cdt.onDone(() {
+      _cdt.cancel();
 
       _timerIndex++;
-      if (_timerIndex < timerList.length) {
+      if (_timerIndex < _timerList.length) {
         _startTimer();
       } else {
         setState(() {
@@ -77,13 +78,13 @@ class _Countdown extends State<Countdown> {
   }
 
   _cancelTimer() {
-    if (cdt != null) {
-      cdt.cancel();
+    if (_cdt != null) {
+      _cdt.cancel();
     }
   }
 
   @override
-  void dispose() {
+  dispose() {
     _cancelTimer();
     super.dispose();
   }
@@ -139,59 +140,3 @@ class _Countdown extends State<Countdown> {
     );
   }
 }
-
-//RaisedButton(
-//elevation: 8.0,
-//shape: RoundedRectangleBorder(
-//borderRadius: BorderRadius.circular(8.0),
-//),
-//padding: EdgeInsets.all(16.0),
-//child: Text(
-//"Cancel",
-//style: kCardTitleStyle,
-//),
-//color: kButtonColor,
-//onPressed: () {
-//Navigator.pop(context);
-//},
-//),
-
-//return SafeArea(
-//child: Scaffold(
-//body: Container(
-//margin: EdgeInsets.all(12.0),
-//child: Column(
-//children: <Widget>[
-//Expanded(
-//child: Center(
-//child: AutoSizeText(
-//43.toString(),
-//style: TextStyle(
-//fontSize: 600.0,
-//color: kCardValueColor,
-//),
-//maxLines: 1,
-//minFontSize: 100.0,
-//),
-//),
-//),
-//RaisedButton(
-//elevation: 8.0,
-//shape: RoundedRectangleBorder(
-//borderRadius: BorderRadius.circular(8.0),
-//),
-//padding: EdgeInsets.all(16.0),
-//child: Text(
-//"Cancel",
-//style: kCardTitleStyle,
-//),
-//color: kButtonColor,
-//onPressed: () {
-//Navigator.pop(context);
-//},
-//),
-//],
-//),
-//),
-//),
-//);

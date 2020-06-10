@@ -4,14 +4,11 @@ import 'package:ftimer/utils/colors.dart';
 import 'package:ftimer/utils/styles.dart';
 
 class CardWidget extends StatelessWidget {
-  CardWidget(
-      {@required this.cardTitle,
-      @required this.slider,
-      @required this.valueTxt});
+  CardWidget({this.cardTitle, this.slider, this.value});
 
   final String cardTitle;
   final Slider slider;
-  final AutoSizeText valueTxt;
+  final int value;
 
   @override
   Widget build(BuildContext context) {
@@ -43,20 +40,29 @@ class CardWidget extends StatelessWidget {
                   Expanded(
                     flex: 3,
                     child: SliderTheme(
-                        data: SliderTheme.of(context).copyWith(
-                          trackHeight: 8.0,
-                          inactiveTrackColor: kCardTitleColor,
-                          activeTrackColor: kCardTitleColor,
-                          thumbColor: kCardValueColor,
-                          thumbShape:
-                              RoundSliderThumbShape(enabledThumbRadius: 16.0),
+                      data: SliderTheme.of(context).copyWith(
+                        trackHeight: 8.0,
+                        inactiveTrackColor: kCardTitleColor,
+                        activeTrackColor: kCardTitleColor,
+                        thumbColor: kCardValueColor,
+                        thumbShape: RoundSliderThumbShape(
+                          enabledThumbRadius: 16.0,
                         ),
-                        child: slider),
+                      ),
+                      child: slider,
+                    ),
                   ),
                   Expanded(
                     flex: 1,
                     child: Align(
-                        alignment: Alignment.centerRight, child: valueTxt),
+                      alignment: Alignment.centerRight,
+                      child: AutoSizeText(
+                        value.toString(),
+                        style: kCardValueTextStyle,
+                        maxLines: 1,
+                        minFontSize: 30.0,
+                      ),
+                    ),
                   ),
                 ],
               ),

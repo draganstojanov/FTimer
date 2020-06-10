@@ -1,11 +1,9 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:ftimer/components/buttons_layout.dart';
 import 'package:ftimer/components/card_widget.dart';
 import 'package:ftimer/model/timer_data.dart';
 import 'package:ftimer/screens/countdown.dart';
 import 'package:ftimer/utils/constants.dart';
-import 'package:ftimer/utils/styles.dart';
 
 class FTimerSelector extends StatefulWidget {
   @override
@@ -16,9 +14,18 @@ class _FTimerSelectorState extends State<FTimerSelector> {
   TimerData timerData;
 
   @override
-  void initState() {
+  initState() {
     super.initState();
     timerData = TimerData();
+  }
+
+  startTimer() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Countdown(timerData: timerData),
+      ),
+    );
   }
 
   @override
@@ -34,7 +41,7 @@ class _FTimerSelectorState extends State<FTimerSelector> {
                 value: timerData.seriesValue.toDouble(),
                 min: kSeriesMinValue,
                 max: kSeriesMaxValue,
-                onChanged: (double newValue) {
+                onChanged: (newValue) {
                   setState(
                     () {
                       timerData.seriesValue = newValue.round();
@@ -42,12 +49,7 @@ class _FTimerSelectorState extends State<FTimerSelector> {
                   );
                 },
               ),
-              valueTxt: AutoSizeText(
-                timerData.seriesValue.toString(),
-                style: kCardValueTextStyle,
-                maxLines: 1,
-                minFontSize: 30.0,
-              ),
+              value: timerData.seriesValue,
             ),
             CardWidget(
               cardTitle: 'Duration',
@@ -63,12 +65,7 @@ class _FTimerSelectorState extends State<FTimerSelector> {
                   );
                 },
               ),
-              valueTxt: AutoSizeText(
-                timerData.durationValue.toString(),
-                style: kCardValueTextStyle,
-                maxLines: 1,
-                minFontSize: 30.0,
-              ),
+              value: timerData.durationValue,
             ),
             CardWidget(
               cardTitle: 'Pause',
@@ -84,12 +81,7 @@ class _FTimerSelectorState extends State<FTimerSelector> {
                   );
                 },
               ),
-              valueTxt: AutoSizeText(
-                timerData.pauseValue.toString(),
-                style: kCardValueTextStyle,
-                maxLines: 1,
-                minFontSize: 30.0,
-              ),
+              value: timerData.pauseValue,
             ),
             ButtonsLayout(
               labelLeft: 'Reset',
@@ -111,12 +103,4 @@ class _FTimerSelectorState extends State<FTimerSelector> {
     );
   }
 
-  void startTimer() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => Countdown(timerData: timerData),
-      ),
-    );
-  }
 }
