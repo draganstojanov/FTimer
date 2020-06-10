@@ -102,5 +102,4 @@ class _FTimerSelectorState extends State<FTimerSelector> {
       ),
     );
   }
-
 }
